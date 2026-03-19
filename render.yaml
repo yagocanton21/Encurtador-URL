@@ -2,6 +2,7 @@ services:
   # Backend (FastAPI)
   - type: web
     name: encurtador-backend
+    plan: free
     env: python
     buildCommand: pip install -r backend/requirements.txt
     startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
@@ -12,11 +13,11 @@ services:
         sync: false
 
   # Frontend (React)
-  - type: web
+  - type: static
     name: encurtador-frontend
-    env: static
+    plan: free
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
+    publishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
         sync: false
